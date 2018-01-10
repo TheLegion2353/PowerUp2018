@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team2353.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -68,6 +69,28 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		String gameData = DriverStation.getInstance().getGameSpecificMessage();
+		if(gameData.charAt(0) == 'R')
+		{
+			RobotMap.closeSwitch = true;
+		} else {
+			RobotMap.closeSwitch = false;
+		}
+		
+		if(gameData.charAt(1) == 'R')
+		{
+			RobotMap.scale = true;
+		} else {
+			RobotMap.scale = false;
+		}
+		
+		if(gameData.charAt(2) == 'R')
+		{
+			RobotMap.farScale = true;
+		} else {
+			RobotMap.farScale = false;
+		}
+		
 		m_autonomousCommand = m_chooser.getSelected();
 
 		/*
