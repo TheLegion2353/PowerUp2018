@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team2353.robot.subsystems.Chassis;
+import org.usfirst.frc.team2353.robot.subsystems.Ultrasonic;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -25,6 +26,7 @@ import org.usfirst.frc.team2353.robot.subsystems.Chassis;
 public class Robot extends TimedRobot {
 	public static OI m_oi;
 	public static Chassis chassis;
+	public static Ultrasonic ultrasonic;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -76,21 +78,21 @@ public class Robot extends TimedRobot {
 		} else {
 			RobotMap.closeSwitch = false;
 		}
-		
+
 		if(gameData.charAt(1) == 'R')
 		{
 			RobotMap.scale = true;
 		} else {
 			RobotMap.scale = false;
 		}
-		
+
 		if(gameData.charAt(2) == 'R')
 		{
 			RobotMap.farScale = true;
 		} else {
 			RobotMap.farScale = false;
 		}
-		
+
 		m_autonomousCommand = m_chooser.getSelected();
 
 		/*
