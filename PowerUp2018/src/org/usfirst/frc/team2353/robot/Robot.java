@@ -7,14 +7,15 @@
 
 package org.usfirst.frc.team2353.robot;
 
+import org.usfirst.frc.team2353.robot.subsystems.Chassis;
+import org.usfirst.frc.team2353.robot.subsystems.Encoder;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team2353.robot.subsystems.Chassis;
-import org.usfirst.frc.team2353.robot.subsystems.Ultrasonic;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -26,7 +27,7 @@ import org.usfirst.frc.team2353.robot.subsystems.Ultrasonic;
 public class Robot extends TimedRobot {
 	public static OI m_oi;
 	public static Chassis chassis;
-	public static Ultrasonic ultrasonic;
+	public static Encoder encoder;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -35,10 +36,12 @@ public class Robot extends TimedRobot {
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
+	
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
 		chassis = new Chassis();
+		encoder = new Encoder();
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}

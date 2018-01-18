@@ -12,6 +12,7 @@ public class RobotMap {
 		
 	//Motors
 	public final static int frontLeftMotor = 4, rearLeftMotor = 6, frontRightMotor = 5, rearRightMotor = 7;
+	public final static int encoderMotor = 9;
 	
 	//Gets the possession of each of the switches for autonomous. 
 	public static boolean closeSwitch, scale, farScale; //Right is true, left is false. 
