@@ -9,6 +9,7 @@ package org.usfirst.frc.team2353.robot;
 
 import org.usfirst.frc.team2353.robot.subsystems.Chassis;
 import org.usfirst.frc.team2353.robot.subsystems.Encoder;
+import org.usfirst.frc.team2353.robot.subsystems.Ultrasonic;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -16,7 +17,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.DigitalModule;
 import edu.wpi.first.wpilibj.I2C;
 
 
@@ -31,6 +31,7 @@ public class Robot extends TimedRobot {
 	public static OI m_oi;
 	public static Chassis chassis;
 	public static Encoder encoder;
+	public static Ultrasonic ultrasonic;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -40,17 +41,12 @@ public class Robot extends TimedRobot {
 	 * used for any initialization code.
 	 */
 
-	I2c i2c;
-	byte[] toSend = new byte[1];
-
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
 		chassis = new Chassis();
 		encoder = new Encoder();
-
-		DigitalModule module = DigitalModule.getInstance(2);
-		i2c = module.getI2C(168);
+		ultrasonic = new Ultrasonic();
 
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
@@ -138,9 +134,6 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
-
-		toSend[0] = "hi";
-		i2C.transaction(toSend, 1, null 0);
 	}
 
 	/**

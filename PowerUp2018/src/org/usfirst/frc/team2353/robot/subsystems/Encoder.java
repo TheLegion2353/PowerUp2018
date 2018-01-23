@@ -26,7 +26,7 @@ public class Encoder extends Subsystem {
 
     public void move(double speed) {
     	encoderMotor.set(-speed);
-    	printCount();
+    	//printCount();
     }
 
     public void printCount() {
