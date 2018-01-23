@@ -9,6 +9,7 @@ package org.usfirst.frc.team2353.robot;
 
 import org.usfirst.frc.team2353.robot.subsystems.Chassis;
 import org.usfirst.frc.team2353.robot.subsystems.Encoder;
+import org.usfirst.frc.team2353.robot.subsystems.Grabber;
 import org.usfirst.frc.team2353.robot.subsystems.Ultrasonic;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -17,7 +18,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.I2C;
 
 
 /**
@@ -32,6 +32,7 @@ public class Robot extends TimedRobot {
 	public static Chassis chassis;
 	public static Encoder encoder;
 	public static Ultrasonic ultrasonic;
+	public static Grabber grabber;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -47,6 +48,7 @@ public class Robot extends TimedRobot {
 		chassis = new Chassis();
 		encoder = new Encoder();
 		ultrasonic = new Ultrasonic();
+		grabber = new Grabber();
 
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
