@@ -16,6 +16,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.DigitalModule;
+import edu.wpi.first.wpilibj.I2C;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -36,12 +39,19 @@ public class Robot extends TimedRobot {
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
-	
+
+	I2c i2c;
+	byte[] toSend = new byte[1];
+
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
 		chassis = new Chassis();
 		encoder = new Encoder();
+
+		DigitalModule module = DigitalModule.getInstance(2);
+		i2c = module.getI2C(168);
+
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
@@ -128,6 +138,9 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
+
+		toSend[0] = "hi";
+		i2C.transaction(toSend, 1, null 0);
 	}
 
 	/**

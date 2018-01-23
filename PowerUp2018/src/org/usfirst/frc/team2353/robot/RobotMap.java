@@ -8,15 +8,15 @@ package org.usfirst.frc.team2353.robot;
  */
 public class RobotMap {
 	//USB Ports
-	public final static int xboxPort = 0; 
-		
+	public final static int xboxPort = 0;
+
 	//Motors
 	public final static int frontLeftMotor = 4, rearLeftMotor = 6, frontRightMotor = 5, rearRightMotor = 7;
 	public final static int encoderMotor = 9;
-	
-	//Gets the possession of each of the switches for autonomous. 
-	public static boolean closeSwitch, scale, farScale; //Right is true, left is false. 
-	
+
+	//Gets the possession of each of the switches for autonomous.
+	public static boolean closeSwitch, scale, farScale; //Right is true, left is false.
+
 	//Black: Roller
 	//Red: Winch Left
 }

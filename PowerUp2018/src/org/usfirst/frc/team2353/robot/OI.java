@@ -51,7 +51,7 @@ public class OI {
 
 		return x_axis;
 	}
-	
+
 	public static double getXboxLeftYAxis() {
 		double y_axis = xboxController.getRawAxis(leftYAxis);
 
@@ -60,7 +60,7 @@ public class OI {
 
 		return -y_axis;
 	}
-	
+
 	public static double getXboxRightXAxis() {
 		double x_axis = xboxController.getRawAxis(rightXAxis);
 
