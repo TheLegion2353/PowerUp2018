@@ -23,7 +23,7 @@ public class UltrasonicRead extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	//serialPort = new SerialPort(BaudRate, SerialPort.Port.kUSB, databits);
+    	serialPort = new SerialPort(BaudRate, SerialPort.Port.kUSB, databits);
     }
 
     // Called repeatedly when this Command is scheduled to run
