@@ -3,44 +3,43 @@ Name: Ultrasonic Setup and Arduino to Roborio Communication
 Author: Richard McHorgh (http://mchorghwebdesign.com)
 Started: 18 Jan 2018
 */
-#include "Wire.h"
+#include "Wire.h";
+
 const int pwPin1 = 3;
 long sensor, mm, inches;
 
 void setup() {
+  Wire.begin();
   Serial.begin(9600);
   pinMode(pwPin1, INPUT);
-
-  Wire.begin(1);
 }
 
-void read_sensor () {
+void readSensor () {
   sensor = pulseIn(pwPin1, HIGH);
   mm = sensor;
   inches = mm/25.4;
 }
 
-void print_range(){
-  Serial.print(mm);
-  Serial.print("mm ");
-  Serial.print(inches);
-  Serial.println("in");
+void printRangeS(){
+  // Print the range over Serial
+  Serial.println(mm);
+
 }
 
-void transmit() {
-  Wire.beginTransmission(2);
-  Wire.write("Distance: ");
+void printRangeI() {
+  // Print the range over I2C
+  Wire.beginTransmission(1);
   Wire.write(mm);
-  Wire.write("mm");
   Wire.endTransmission();
-
-  delay(500);
 }
 
 void loop() {
-  read_sensor();
-  print_range();
-  transmit();
+  readSensor();
+
+  //Comment out the function that you don't want to run
+  printRangeS();
+  //printRangeI();
+
   delay(100);
 
 }
