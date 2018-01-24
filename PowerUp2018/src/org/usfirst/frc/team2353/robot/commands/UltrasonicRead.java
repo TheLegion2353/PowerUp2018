@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2353.robot.commands;
 
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 
 import org.usfirst.frc.team2353.robot.OI;
 import org.usfirst.frc.team2353.robot.Robot;
@@ -30,9 +31,9 @@ public class UltrasonicRead extends Command {
     protected void execute() {
     	if(OI.xboxController.getRawButton(OI.AButtonNum) == true) {
     		byte[] bytes = new byte[4];
-    		ByteBuffer.wrap(bytes).putInt(1);
+    		bytes = ByteBuffer.allocate(4).putInt(1).array();
     		
-    		System.out.println(bytes.toString());
+    		System.out.println(Arrays.toString(bytes));
     		
     		serialPort.write(bytes, bytes.length);
     		
