@@ -23,6 +23,7 @@ void readSensor () {
 void printRangeS(){
   // Print the range over Serial
   Serial.println(mm);
+
 }
 
 void printRangeI() {
@@ -36,8 +37,8 @@ void loop() {
   readSensor();
 
   //Comment out the function that you don't want to run
-  //printRangeS();
-  printRangeI();
+  printRangeS();
+  //printRangeI();
 
   delay(100);
 
