@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2353.robot.commands;
 
+import org.usfirst.frc.team2353.robot.OI;
 import org.usfirst.frc.team2353.robot.Robot;
 import org.usfirst.frc.team2353.robot.SerialPortInterface;
 
@@ -20,7 +21,9 @@ public class UltrasonicRead extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//Robot.ultrasonic.printSerial(SerialPortInterface.Read());
+    	if(OI.xboxController.getRawButton(OI.AButtonNum) == true) {
+    		//Robot.ultrasonic.printSerial(SerialPortInterface.Read());
+		}
     }
 
     // Make this return true when this Command no longer needs to run execute()

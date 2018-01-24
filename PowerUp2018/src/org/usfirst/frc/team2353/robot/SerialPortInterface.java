@@ -9,7 +9,7 @@ public class SerialPortInterface {
 	private static SerialPort serialPort;
 	
 	public SerialPortInterface() {
-		serialPort = new SerialPort(BaudRate, SerialPort.Port.kUSB1, databits);
+		serialPort = new SerialPort(BaudRate, SerialPort.Port.kOnboard, databits);
 	}
 	
 	public static String Read() {
