@@ -21,10 +21,10 @@ public class Chassis extends Subsystem {
 		rearLeftMotor = new Victor(RobotMap.rearLeftMotor);
 		frontRightMotor = new Victor(RobotMap.frontRightMotor);
 		rearRightMotor = new Victor(RobotMap.rearRightMotor);
-   	drive = new RobotDrive(frontLeftMotor, rearLeftMotor,frontRightMotor, rearRightMotor);
+		drive = new RobotDrive(frontLeftMotor, rearLeftMotor,frontRightMotor, rearRightMotor);
    	
-   	drive.setInvertedMotor(MotorType.kFrontLeft, true);
-   	drive.setInvertedMotor(MotorType.kRearLeft, true);
+		drive.setInvertedMotor(MotorType.kFrontLeft, true);
+		drive.setInvertedMotor(MotorType.kRearLeft, true);
 	}
 
    public void initDefaultCommand() {
