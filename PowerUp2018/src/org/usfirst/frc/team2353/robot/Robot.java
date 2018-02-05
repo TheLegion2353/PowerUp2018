@@ -10,6 +10,7 @@ package org.usfirst.frc.team2353.robot;
 import org.usfirst.frc.team2353.robot.subsystems.Chassis;
 import org.usfirst.frc.team2353.robot.subsystems.Encoder;
 import org.usfirst.frc.team2353.robot.subsystems.Grabber;
+import org.usfirst.frc.team2353.robot.subsystems.Lifter;
 import org.usfirst.frc.team2353.robot.subsystems.Ultrasonic;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -33,6 +34,7 @@ public class Robot extends TimedRobot {
 	public static Encoder encoder;
 	public static Ultrasonic ultrasonic;
 	public static Grabber grabber;
+	public static Lifter lifter;
 	
 	boolean arduinoPluggedIn = true;
 	
@@ -49,6 +51,7 @@ public class Robot extends TimedRobot {
 		m_oi = new OI();
 		chassis = new Chassis();
 		encoder = new Encoder();
+		lifter = new Lifter();
 		
 		if(arduinoPluggedIn) {
 			new Thread(new Runnable() {

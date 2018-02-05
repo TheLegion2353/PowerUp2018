@@ -14,8 +14,8 @@ public class Grabber extends Subsystem {
     private Victor rightMotor, leftMotor;
     
     public Grabber() {
-    	rightMotor = new Victor(RobotMap.rightMotor);
-    	leftMotor = new Victor(RobotMap.leftMotor);
+    	rightMotor = new Victor(RobotMap.rightGrabberMotor);
+    	leftMotor = new Victor(RobotMap.leftGrabberMotor);
     }
     
     public void initDefaultCommand() {
