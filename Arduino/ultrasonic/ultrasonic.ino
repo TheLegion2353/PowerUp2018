@@ -3,43 +3,85 @@ Name: Ultrasonic Setup and Arduino to Roborio Communication
 Author: Richard McHorgh (http://mchorghwebdesign.com)
 Started: 18 Jan 2018
 */
-#include "Wire.h";
+#include <SPI.h>
+#include <Pixy.h>
 
-const int pwPin1 = 3;
+Pixy pixy;
+
+const int pwPin1 = 4;
 long sensor, mm, inches;
+int sendControl, powerCube;
+
 
 void setup() {
-  Wire.begin();
-  Serial.begin(9600);
+
   pinMode(pwPin1, INPUT);
+
+  Serial.begin(9600);
+  Serial.println("Pixy Starting");
+  pixy.init();
 }
 
 void readSensor () {
-  sensor = pulseIn(pwPin1, HIGH);
-  mm = sensor;
+  mm = pulseIn(pwPin1, HIGH);
   inches = mm/25.4;
 }
 
-void printRangeS(){
-  // Print the range over Serial
-  Serial.println(mm);
-
+void printRangeS() {
+  sendControl = Serial.read();
+  if (sendControl == 49) {
+    readSensor();
+    Serial.print(".");
+    Serial.print(mm);
+    Serial.print(".");
+  }
+  else if(sendControl == 50) {
+    for( int i = 0; i < 10; i++) {
+      readSensor();
+    Serial.print(".");
+    Serial.print(mm);
+    Serial.print(".");
+    }
+  }
 }
 
-void printRangeI() {
-  // Print the range over I2C
-  Wire.beginTransmission(1);
-  Wire.write(mm);
-  Wire.endTransmission();
+void pixyData() {
+  static int i = 0;
+  int j;
+  uint16_t blocks;
+  char buf[32];
+
+  powerCube = 1;
+  sendControl = Serial.read();
+  
+  if(sendControl == 51) {
+    Serial.print(sendControl);
+    blocks = pixy.getBlocks();
+    if (blocks) {
+      i++;
+      if (i%50==0) {
+        for (j=0; j<blocks; j++) {
+          if (pixy.blocks[j].signature == powerCube) {
+            Serial.print("/");
+            Serial.print(pixy.blocks[j].x);
+            Serial.print("/");
+            Serial.print(pixy.blocks[j].width);
+            Serial.print("/");
+            Serial.print(pixy.blocks[j].height);
+            Serial.println("/");
+  
+            pixy.blocks[j].print();
+          }
+        }
+      }
+    }
+  }
+  
 }
 
 void loop() {
-  readSensor();
-
-  //Comment out the function that you don't want to run
+  Serial.flush();
   printRangeS();
-  //printRangeI();
-
-  delay(100);
+  pixyData();
 
 }
