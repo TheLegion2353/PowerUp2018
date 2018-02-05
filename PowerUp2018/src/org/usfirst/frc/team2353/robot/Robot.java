@@ -33,7 +33,9 @@ public class Robot extends TimedRobot {
 	public static Encoder encoder;
 	public static Ultrasonic ultrasonic;
 	public static Grabber grabber;
-
+	
+	boolean arduinoPluggedIn = true;
+	
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -47,7 +49,15 @@ public class Robot extends TimedRobot {
 		m_oi = new OI();
 		chassis = new Chassis();
 		encoder = new Encoder();
-		ultrasonic = new Ultrasonic();
+		
+		if(arduinoPluggedIn) {
+			new Thread(new Runnable() {
+	    	     public void run() {
+	    	    	 ultrasonic = new Ultrasonic();
+	    	     }
+	    	}).start();
+		}
+		
 		grabber = new Grabber();
 
 		// chooser.addObject("My Auto", new MyAutoCommand());
