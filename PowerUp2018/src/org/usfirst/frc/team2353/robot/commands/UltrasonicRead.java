@@ -68,7 +68,6 @@ public class UltrasonicRead extends Command {
 		TimerTask task = new TimerTask() {
 			public void run() {
 				if(UltrasonicRead.serialPort.getBytesReceived() != 0) {
-					System.out.println("test");
 					distance = SerialRead();
 					timer2.cancel();
 				}
