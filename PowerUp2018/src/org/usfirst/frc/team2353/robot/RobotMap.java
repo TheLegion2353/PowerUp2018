@@ -11,14 +11,11 @@ public class RobotMap {
 	public final static int xboxPort = 0;
 
 	//Motors
-	public final static int frontLeftMotor = 4, rearLeftMotor = 6, frontRightMotor = 5, rearRightMotor = 7;
+	public final static int frontLeftMotor = 0, rearLeftMotor = 2, frontRightMotor = 1, rearRightMotor = 3;
 	public final static int encoderMotor = 9;
-	public final static int rightGrabberMotor = 0, leftGrabberMotor = 1;
-	public final static int lifter = 8;
+	public final static int rightGrabberMotor = 4, leftGrabberMotor = 5;
+	public final static int lifter = 6;
 
 	//Gets the possession of each of the switches for autonomous.
 	public static boolean closeSwitch, scale, farScale; //Right is true, left is false.
-
-	//Black: Roller
-	//Red: Winch Left
 }

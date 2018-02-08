@@ -26,5 +26,13 @@ public class Grabber extends Subsystem {
     	rightMotor.set(speed);
     	leftMotor.set(-speed);
     }
+    
+    public void moveRight(double speed) {
+    	rightMotor.set(speed);
+    }
+    
+    public void moveLeft(double speed) {
+    	leftMotor.set(speed);
+    }
 }
 

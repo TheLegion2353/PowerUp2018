@@ -11,7 +11,6 @@ import org.usfirst.frc.team2353.robot.subsystems.Chassis;
 import org.usfirst.frc.team2353.robot.subsystems.Encoder;
 import org.usfirst.frc.team2353.robot.subsystems.Grabber;
 import org.usfirst.frc.team2353.robot.subsystems.Lifter;
-import org.usfirst.frc.team2353.robot.subsystems.Ultrasonic;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -32,11 +31,10 @@ public class Robot extends TimedRobot {
 	public static OI m_oi;
 	public static Chassis chassis;
 	public static Encoder encoder;
-	public static Ultrasonic ultrasonic;
 	public static Grabber grabber;
 	public static Lifter lifter;
 	
-	boolean arduinoPluggedIn = true;
+	boolean arduinoPluggedIn = false;
 	
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -45,22 +43,13 @@ public class Robot extends TimedRobot {
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
-
+	
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
 		chassis = new Chassis();
 		encoder = new Encoder();
 		lifter = new Lifter();
-		
-		if(arduinoPluggedIn) {
-			new Thread(new Runnable() {
-	    	     public void run() {
-	    	    	 ultrasonic = new Ultrasonic();
-	    	     }
-	    	}).start();
-		}
-		
 		grabber = new Grabber();
 
 		// chooser.addObject("My Auto", new MyAutoCommand());

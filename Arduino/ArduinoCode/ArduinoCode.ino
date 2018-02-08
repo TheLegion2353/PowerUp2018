@@ -1,8 +1,8 @@
 #include <SPI.h>  
-#include <Pixy.h>
+//#include <Pixy.h>
 
 // This is the main Pixy object 
-Pixy pixy;
+//Pixy pixy;
 const int pwPin1 = 4;
 
 void setup()
@@ -10,7 +10,7 @@ void setup()
   Serial.begin(9600);
   Serial.print("Starting...\n");
 
-  pixy.init();
+  //pixy.init();
 }
 
 static int i = 0;
@@ -21,6 +21,7 @@ int sendControl;
 
 void loop()
 { 
+  /*
   blocks = pixy.getBlocks();
   
   if (blocks)
@@ -39,6 +40,7 @@ void loop()
       Serial.print(pixy.blocks[j].width);
       Serial.println("/");
     }
-  }  
+  } 
+ */ 
 }
 
