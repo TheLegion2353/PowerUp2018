@@ -11,7 +11,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Grabber extends Subsystem {
 
-    private Victor rightMotor, leftMotor;
+    private static Victor rightMotor;
+	private static Victor leftMotor;
     
     public Grabber() {
     	rightMotor = new Victor(RobotMap.rightGrabberMotor);
@@ -22,7 +23,7 @@ public class Grabber extends Subsystem {
         setDefaultCommand(new GrabberMove());
     }
     
-    public void move(double speed) {
+    public static void move(double speed) {
     	rightMotor.set(speed);
     	leftMotor.set(-speed);
     }
