@@ -14,7 +14,7 @@ public class Encoder extends Subsystem {
 
 	private Victor encoderMotor;
 
-	EncoderInterface encoderInterface = new EncoderInterface(0, 1, false);
+	EncoderInterface encoderInterface = new EncoderInterface(RobotMap.encoderPortOne, RobotMap.encoderPortTwo, false);
 
 	public Encoder() {
 		encoderMotor = new Victor(RobotMap.encoderMotor);
@@ -26,7 +26,7 @@ public class Encoder extends Subsystem {
 
     public void move(double speed) {
     	encoderMotor.set(-speed);
-    	//printCount();
+    	printCount();
     }
 
     public void printCount() {
