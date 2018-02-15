@@ -17,7 +17,7 @@ public class RobotMap {
 	public final static int lifter = 6;
 	
 	//Sensor
-	public final static int encoderPortOne = 2, encoderPortTwo = 3;
+	public final static int encoderPortOne = 0, encoderPortTwo = 1; //DIO ports
 
 	//Gets the possession of each of the switches for autonomous.
 	public static boolean closeSwitch, scale, farScale; //Right is true, left is false.

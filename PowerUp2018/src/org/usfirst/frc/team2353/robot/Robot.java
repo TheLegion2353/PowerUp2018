@@ -11,7 +11,9 @@ import org.usfirst.frc.team2353.robot.subsystems.Chassis;
 import org.usfirst.frc.team2353.robot.subsystems.Encoder;
 import org.usfirst.frc.team2353.robot.subsystems.Grabber;
 import org.usfirst.frc.team2353.robot.subsystems.Lifter;
+import org.usfirst.frc.team2353.robot.subsystems.LifterPID;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -33,6 +35,7 @@ public class Robot extends TimedRobot {
 	public static Encoder encoder;
 	public static Grabber grabber;
 	public static Lifter lifter;
+	public static LifterPID lifterPID;
 	
 	boolean arduinoPluggedIn = false;
 	
@@ -48,10 +51,13 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		m_oi = new OI();
 		chassis = new Chassis();
-		encoder = new Encoder();
-		lifter = new Lifter();
+		//encoder = new Encoder();
+		//lifter = new Lifter();
 		grabber = new Grabber();
-
+		lifterPID = new LifterPID();
+		
+		CameraServer.getInstance().startAutomaticCapture();
+		
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
