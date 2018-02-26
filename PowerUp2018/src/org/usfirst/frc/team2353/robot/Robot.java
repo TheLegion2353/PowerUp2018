@@ -7,6 +7,10 @@
 
 package org.usfirst.frc.team2353.robot;
 
+import org.usfirst.frc.team2353.robot.commands.LeftPosition;
+import org.usfirst.frc.team2353.robot.commands.MiddlePosition;
+import org.usfirst.frc.team2353.robot.commands.MoveForward;
+import org.usfirst.frc.team2353.robot.commands.RightPosition;
 import org.usfirst.frc.team2353.robot.subsystems.Chassis;
 import org.usfirst.frc.team2353.robot.subsystems.Grabber;
 import org.usfirst.frc.team2353.robot.subsystems.Lifter;
@@ -33,10 +37,13 @@ public class Robot extends TimedRobot {
 	public static Grabber grabber;
 	public static Lifter lifter;
 	
+	public static int position = 3; //0 is left, 1 is middle, 2 is right.
+	
 	boolean arduinoPluggedIn = false;
 	
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
+	SendableChooser<Command> side = new SendableChooser<>();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -52,7 +59,13 @@ public class Robot extends TimedRobot {
 		
 		CameraServer.getInstance().startAutomaticCapture();
 		
-		// chooser.addObject("My Auto", new MyAutoCommand());
+		side.addDefault("Left", new LeftPosition());
+		side.addDefault("Middle", new MiddlePosition());
+		side.addDefault("Right", new RightPosition());
+		
+		m_chooser.addDefault("Move Forward", new MoveForward());
+		
+		SmartDashboard.putData("Side Select", side);
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
 
@@ -85,25 +98,27 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		String gameData = DriverStation.getInstance().getGameSpecificMessage();
-		if(gameData.charAt(0) == 'R')
-		{
-			RobotMap.closeSwitch = true;
-		} else {
-			RobotMap.closeSwitch = false;
-		}
+		if(gameData.length() >= 3) {
+			if(gameData.charAt(0) == 'R')
+			{
+				RobotMap.closeSwitch = true;
+			} else {
+				RobotMap.closeSwitch = false;
+			}
 
-		if(gameData.charAt(1) == 'R')
-		{
-			RobotMap.scale = true;
-		} else {
-			RobotMap.scale = false;
-		}
+			if(gameData.charAt(1) == 'R')
+			{
+				RobotMap.scale = true;
+			} else {
+				RobotMap.scale = false;
+			}
 
-		if(gameData.charAt(2) == 'R')
-		{
-			RobotMap.farScale = true;
-		} else {
-			RobotMap.farScale = false;
+			if(gameData.charAt(2) == 'R')
+			{
+				RobotMap.farScale = true;
+			} else {
+				RobotMap.farScale = false;
+			}
 		}
 
 		m_autonomousCommand = m_chooser.getSelected();

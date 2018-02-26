@@ -21,11 +21,11 @@ public class GrabberMove extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if(OI.xboxController.getRawButton(OI.right_Bumper) == true && OI.xboxController.getRawButton(OI.left_Bumper) == false) {
-			Robot.grabber.moveRight(-0.4);
+			Robot.grabber.moveRight(-0.6);
 			Robot.grabber.moveLeft(0);
 		}
     	else if(OI.xboxController.getRawButton(OI.left_Bumper) == true && OI.xboxController.getRawButton(OI.right_Bumper) == false) {
-    		Robot.grabber.moveLeft(0.4);
+    		Robot.grabber.moveLeft(0.6);
     		Robot.grabber.moveRight(0);
 		}
     	else if(OI.xboxController.getRawButton(OI.right_Bumper) == true && OI.xboxController.getRawButton(OI.left_Bumper) == true) {
