@@ -28,14 +28,23 @@ public class MoveForward extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	if(Robot.position == 0) {
-    		addSequential(new TimedDrive(0.5, 0, 0, 0, 0.1));
+    		addSequential(new TimedDrive(0, .5, 0, 0, 1.8));
     		//addSequential(new TimedDrive(1, 0, 0, 0, 1));
     	}
     	else if(Robot.position == 1) {
+    		addSequential(new TimedDrive(0, .5, 0, 0, .8));
+    		addSequential(new TimedDrive(0, 0, 0.175, 0, 3) );
+    		addSequential(new TimedDrive(0, .5, 0, 0, 1));
+    		addSequential(new TimedDrive(0, 0, -0.3, 0, 3) );
+    		addSequential(new TimedDrive(0, .5, 0, 0, .8));
+
+    		addSequential(new TimedDrive(0, 0, -0.2, 0, 3) );
+
+    		addSequential(new TimedDrive(0, .5, 0, 0, .8));
     		
     	}
     	else if(Robot.position == 2) {
-    		
+    		addSequential(new TimedDrive(0, 0, 0, 0, 2.5));    		
     	}
     }
 }

@@ -37,7 +37,7 @@ public class Robot extends TimedRobot {
 	public static Grabber grabber;
 	public static Lifter lifter;
 	
-	public static int position = 3; //0 is left, 1 is middle, 2 is right.
+	public static int position; //0 is left, 1 is middle, 2 is right. 
 	
 	boolean arduinoPluggedIn = false;
 	
@@ -102,6 +102,7 @@ public class Robot extends TimedRobot {
 			if(gameData.charAt(0) == 'R')
 			{
 				RobotMap.closeSwitch = true;
+				 
 			} else {
 				RobotMap.closeSwitch = false;
 			}
