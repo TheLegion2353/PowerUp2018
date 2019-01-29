@@ -1,31 +1,37 @@
 package org.usfirst.frc.team2353.robot.commands;
 
 import org.usfirst.frc.team2353.robot.Robot;
+import org.usfirst.frc.team2353.robot.subsystems.Lifter;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class LeftPosition extends Command {
+public class MoveUp extends Command {
 
-    public LeftPosition() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+	double speed = 0;
+	
+    public MoveUp(double time, double speed) {
+    	requires(Robot.lifter);
+    	
+    	setTimeout(time);
+    	
+    	this.speed = speed;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.position = 0;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	Lifter.moveLifter(speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+    	return isTimedOut();
     }
 
     // Called once after isFinished returns true

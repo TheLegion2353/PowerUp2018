@@ -7,10 +7,8 @@
 
 package org.usfirst.frc.team2353.robot;
 
-import org.usfirst.frc.team2353.robot.commands.LeftPosition;
-import org.usfirst.frc.team2353.robot.commands.MiddlePosition;
-import org.usfirst.frc.team2353.robot.commands.MoveForward;
-import org.usfirst.frc.team2353.robot.commands.RightPosition;
+import org.usfirst.frc.team2353.robot.commands.CenterSwitch;
+import org.usfirst.frc.team2353.robot.commands.LeftRightMoveForward;
 import org.usfirst.frc.team2353.robot.subsystems.Chassis;
 import org.usfirst.frc.team2353.robot.subsystems.Grabber;
 import org.usfirst.frc.team2353.robot.subsystems.Lifter;
@@ -37,13 +35,8 @@ public class Robot extends TimedRobot {
 	public static Grabber grabber;
 	public static Lifter lifter;
 	
-	public static int position; //0 is left, 1 is middle, 2 is right. 
-	
-	boolean arduinoPluggedIn = false;
-	
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
-	SendableChooser<Command> side = new SendableChooser<>();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -59,13 +52,10 @@ public class Robot extends TimedRobot {
 		
 		CameraServer.getInstance().startAutomaticCapture();
 		
-		side.addDefault("Left", new LeftPosition());
-		side.addDefault("Middle", new MiddlePosition());
-		side.addDefault("Right", new RightPosition());
 		
-		m_chooser.addDefault("Move Forward", new MoveForward());
+		m_chooser.addDefault("Left/Right Move Forward", new LeftRightMoveForward());
+		m_chooser.addDefault("Center Switch", new CenterSwitch());
 		
-		SmartDashboard.putData("Side Select", side);
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
 

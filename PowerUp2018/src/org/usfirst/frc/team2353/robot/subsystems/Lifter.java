@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Lifter extends Subsystem {
 
-	private Victor lifterMotor;
+	private static Victor lifterMotor;
 	
 	public Lifter() {
 		lifterMotor = new Victor(RobotMap.lifter);
@@ -21,7 +21,7 @@ public class Lifter extends Subsystem {
         setDefaultCommand(new LifterMove());
     }
     
-    public void moveLifter(double speed) {
+    public static void moveLifter(double speed) {
     	lifterMotor.set(speed);
     }
 }
