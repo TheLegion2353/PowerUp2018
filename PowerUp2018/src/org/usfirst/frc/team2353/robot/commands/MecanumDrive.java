@@ -20,13 +20,19 @@ public class MecanumDrive extends Command {
 
    // Called repeatedly when this Command is scheduled to run 
    protected void execute() {
-	   if(OI.xboxController.getRawButton(OI.BButtonNum) == true) {
-		   Robot.chassis.mecanumDrive_Cartesian(-OI.getXboxLeftXAxis(), OI.getXboxLeftYAxis() * 0.5, OI.getXboxRightXAxis() * 0.5, 0);
+	   if(OI.xboxController.getRawButton(OI.AButtonNum) == false) {
+		   if(OI.xboxController.getRawButton(OI.BButtonNum) == true) {
+			   Robot.chassis.mecanumDrive_Cartesian(-OI.getXboxLeftXAxis(), OI.getXboxLeftYAxis() * 0.5, OI.getXboxRightXAxis() * 0.5, 0);
+		   }
+		   else {
+			   Robot.chassis.mecanumDrive_Cartesian(-OI.getXboxLeftXAxis(), OI.getXboxLeftYAxis(), OI.getXboxRightXAxis(), 0);
+		   }
 	   }
 	   else {
-		   Robot.chassis.mecanumDrive_Cartesian(-OI.getXboxLeftXAxis(), OI.getXboxLeftYAxis(), OI.getXboxRightXAxis(), 0);
+		   //Vision processing loop
+		   
+		   //First check for rotation
 	   }
-	   
    }
 
    // Make this return true when this Command no longer needs to run execute()
