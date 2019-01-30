@@ -34,6 +34,9 @@ import edu.wpi.cscore.CvSource;
 import edu.wpi.first.wpilibj.CameraServer;
 
 public class MainVisionTargetDetection {
+	final double focalLength = 333.82;
+	final double distanceBetweenTape = 14.5;
+	
 	public double[] normal() throws IOException {
 		//Loading the OpenCV core library  
 	      System.loadLibrary( Core.NATIVE_LIBRARY_NAME ); 
@@ -133,6 +136,8 @@ public class MainVisionTargetDetection {
                       	text = "SQU";
                       }
 	                  else {
+	                	  	double[] LW = new double[2];
+	                	  
 	                		text = "RECT";
                       	
 	                		//This takes any parallelograms and turns them into rectangles.
@@ -192,10 +197,7 @@ public class MainVisionTargetDetection {
 	                      	
 	                      	Line[] shortestLines = new Line[2];
 	                      	shortestLines[0] = lines[0];
-	                      	
-	                      	Line[] longestLines = new Line[2];
-	                      	longestLines[0] = lines[0];
-	                      	
+
 	                      	int ct = 0;
 	                      	for(int i = 1; i < lines.length; i++) {
 	                      		if(Math.abs(lines[i].length() - shortestLines[0].length()) <= shortestLines[0].length() * 0.01) {
@@ -205,9 +207,10 @@ public class MainVisionTargetDetection {
 	                      			shortestLines[0] = lines[i];
 	                      		}
 	                      		else {
-	                      			
+	                      			LW[0] = lines[i].length();
 	                      		}
 	                      	}
+	                      	LW[1] = shortestLines[0].length();
 	                      	
 	                      	/*
 	                      	for(int i = 0; i < shortestLines.length; i++) {
@@ -234,7 +237,7 @@ public class MainVisionTargetDetection {
 	                      		drawRotatedRect(mat, rotatedRect, new Scalar(0, 0, 255), 4);
 	                      		
 	                      		centerLines.add(centerLine);
-	                      		centerLinesRects.add(rotatedRect);
+	                      		centerLinesRects.add(LW);
 	                      	}
 	                	}
 	                }
@@ -244,7 +247,7 @@ public class MainVisionTargetDetection {
 		        if(centerLines.size() >= 2) {
 		        	//Sort center lines left to right
 	                Line temp;
-	                RotatedRect tempRect;
+	                double[] tempRect;
 	                
 	                for (int i = 0; i < centerLines.size()-1; i++)
 	                {
@@ -264,7 +267,7 @@ public class MainVisionTargetDetection {
 	                }
 	                
 	                Line line = null;
-	                RotatedRect[] rect = new RotatedRect[2];
+	                double rect[][] = new double[2][]; 
 	                
 	                for(int i = 0; i < centerLines.size() - 1; i++) {
 	                	if(centerLines.get(i).slope() > 0 && centerLines.get(i + 1).slope() < 0) {	                		
@@ -290,8 +293,8 @@ public class MainVisionTargetDetection {
 	                if(line != null) {
 	                	double midPointX = (mat.size().width / 2);
 	                	
-	                	double ratioAreas = Math.max(rect[0].area(), rect[1].area()) / Math.min(rect[0].area(), rect[1].area());
-	                	if(rect[0].area() > rect[1].area()) {
+	                	double ratioAreas = Math.max(rect[0][0] * rect[0][1], rect[1][0] * rect[1][1]) / Math.min(rect[0][0] * rect[0][1], rect[1][0] * rect[1][1]);
+	                	if(rect[0][0] * rect[0][1] > rect[1][0] * rect[1][1]) {
 	                		ratioAreas *= -1; //This provides an indicator of which side is closer to it. If the ratio is negative, the left side is closer
 	                	}
 	                	
@@ -319,17 +322,26 @@ public class MainVisionTargetDetection {
                 		//Get the fraction of the screen that's between the point the robot is facing (the camera midpoint) and the target point, then multiply that by the FOV to get the rotation angle
                 		double rotationAngleToMiddle = ((line.midPoint().x - (width / 2)) / width) * horizontalFOV;
                 		
-                		//Determine distance to each of the rectangles. https://www.pyimagesearch.com/2015/01/19/find-distance-camera-objectmarker-using-python-opencv/
-                		final double focalLength = 333.82;
+                		//Determine distance to each of the rectangles. https://www.pyimagesearch.com/2015/01/19/find-distance-camera-objectmarker-using-python-opencv/               		
+                		double leftRectDistance = (distanceBetweenTape * focalLength) / rect[0][1];
+                		double rightRectDistance = (distanceBetweenTape * focalLength) / rect[1][1];
                 		
-                		rect[0].
-                		
-                		double leftRectDistance = (14.5 * focalLength);
+                		double c1 = (line.getStartX() - line.getEndX()) * horizontalFOV;
+                		System.out.println(c1);
+                		double c2 = Math.toDegrees(Math.acos((Math.pow(leftRectDistance, 2) + Math.pow(rightRectDistance, 2) - Math.pow(14.5, 2)) / 2 * leftRectDistance * rightRectDistance));
+                		System.out.println(c2);
                 		
                 		//Find the strafe amount (assuming perpendicular to the target, that means we have to rotate first and then strafe)
+                		double perpendicularDistanceFromMidpoint = (leftRectDistance * rightRectDistance * Math.sin(Math.toRadians(c1))) / distanceBetweenTape;
+                		double strafeAmount = Math.sqrt(Math.pow(leftRectDistance, 2) - Math.pow(perpendicularDistanceFromMidpoint, 2)) - (distanceBetweenTape/2);
                 		
+                		//This is the rotation angle from the middle so that strafe axis is parallel to the two pieces of tape
+                		double rotationAngleFromMiddle = 90 - Math.toDegrees(Math.atan(perpendicularDistanceFromMidpoint / strafeAmount));
                 		
-	                	
+                		double totalRotation = rotationAngleToMiddle + rotationAngleFromMiddle;
+                		
+                		double[] temp3 = {totalRotation, rotationAngleFromMiddle};
+                		//returnVar = temp3;
 	                }
 		        }
 		  }
